@@ -5,7 +5,8 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       logger = require('morgan'),
       path = require('path'),
-      PORT = process.env.PORT || 8080
+      PORT = process.env.PORT || 8080,
+      $ = require("jquery")
 
 //initializing the app
 const app = express()
@@ -43,10 +44,10 @@ const index = require('./routes/index')
       clear = require('./routes/clear');
 
 app.use('/', index);
-// app.use('/articles', articles);
-// app.use('/notes', notes);
-// app.use('/scrape', scrape);
-// app.use('/clear', clear);
+app.use('/articles', articles);
+app.use('/notes', notes);
+app.use('/scrape', scrape);
+app.use('/clear', clear);
 
 app.listen(PORT, function(){
   console.log("Server listening on https://localhost:" + PORT)
