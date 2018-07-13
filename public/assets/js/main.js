@@ -1,5 +1,24 @@
-$(document).ready(function () {
-    
+
+
+// $("#scrape-new").on("click", function(){
+//     scrapeNew()
+
+// })
+
+
+// function scrapeNew(){
+// $.get("/scrape", function(response){
+//     console.log(response)
+//     location.reload()
+// })
+// }
+
+
+
+
+
+      
+
     //function to post a note to server
     function sendNote(element) {
       let note = {};
@@ -50,25 +69,7 @@ $(document).ready(function () {
     $('#alertModal').on('hide.bs.modal', function (e) {
       window.location.href = '/';
     });
-  
-    //click event to scrape new articles
-    $('#scrape').on('click', function (e){
-      e.preventDefault();
-      $.ajax({
-        url: '/scrape/newArticles',
-        type: 'GET',
-        success: function (response) {
-          $('#numArticles').text(response.count);
-        },
-        error: function (error) {
-          showErrorModal(error);
-        },
-        complete: function (result){
-          $('#alertModal').modal('show');
-        }
-      });
-    });//end of #scrape click event
-  
+
     //click event to save an article
     $(document).on('click', '#saveArticle', function (e) {
       let articleId = $(this).data('id');
@@ -126,7 +127,7 @@ $(document).ready(function () {
         url: '/articles/deleteArticle/'+id,
         type: 'DELETE',
         success: function (response) {
-          window.location.href = '/articles/viewSaved';
+          window.location.href = '/articles/saved';
         },
         error: function (error) {
           showErrorModal(error);
@@ -174,6 +175,4 @@ $(document).ready(function () {
         }
       });
     }); //end of .note click event
-  
-  });//end of document ready function
   
