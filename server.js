@@ -37,14 +37,14 @@ app.use('/notes',express.static(path.join(__dirname, 'public')));
 
 
 //setting up routes
-const index = require('./routes/index')
-//       articles = require('./routes/articles'),
+const index = require('./routes/index'),
+      articles = require('./routes/articles')
 //       notes = require('./routes/notes'),
     //   scrape = require('./routes/scrape')
 //       clear = require('./routes/clear');
 
 app.use('/', index);
-// app.use('/articles', articles);
+app.use('/articles', articles);
 // app.use('/notes', notes);
 // app.use('/scrape', scrape);
 // app.use('/clear', clear);
