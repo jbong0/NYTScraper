@@ -24,7 +24,7 @@ router.get("/scrape", function(req, res) {
       let savedHeadlines = savedArticles.map(article => article.headline);
 
         //calling request promist with options object
-        rp(options)
+        // rp(options)
         .then(function ($) {
           let newArticleArr = [];
           //iterating over returned articles, and creating a newArticle object from the data

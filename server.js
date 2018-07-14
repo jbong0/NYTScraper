@@ -6,6 +6,7 @@ const express = require('express'),
       logger = require('morgan'),
       path = require('path'),
       PORT = process.env.PORT || 3000,
+      request = require('request'),
       $ = require("jquery")
 
 //initializing the app
