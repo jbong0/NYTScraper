@@ -22,7 +22,7 @@ mongoose
 //setting up Morgan middleware
 app.use(logger('dev'));
 
-//setting up body parser middlewar
+//setting up body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
