@@ -1,41 +1,59 @@
 //Dependencies
 const express = require('express'),
-      router = express.Router()
+      cheerio = require('cheerio'),
+      rp = require('request-promise'),
+      router = express.Router(),
+      db = require('../models')
 
+//route to scrape new articles
+router.get("/newArticles", function(req, res) {
+  //configuring options object for request-promist
+  const options = {
+    uri: 'https://www.nytimes.com/section/us',
+    transform: function (body) {
+        return cheerio.load(body)
+        console.log(body)
+    }
+  };
+  //calling the database to return all saved articles
+  db.Article
+    .find({})
+    .then((savedArticles) => {
+      //creating an array of saved article headlines
+      let savedHeadlines = savedArticles.map(article => article.headline);
 
-// scrape get route
-router.get('/scrape', function(req, res){
-    request("https://www.nytimes.com/", function(err, response, html){
-        const $ = cheerio.load(html)
-        let newArticleArr = []
+        //calling request promist with options object
+        rp(options)
+        .then(function ($) {
+          let newArticleArr = [];
+          //iterating over returned articles, and creating a newArticle object from the data
+          $('#latest-panel article.story.theme-summary').each((i, element) => {
+            let newArticle = new db.Article({
+              storyUrl: $(element).find('.story-body>.story-link').attr('href'),
+              headline: $(element).find('h2.headline').text().trim(),
+              summary : $(element).find('p.summary').text().trim(),
+              imgUrl  : $(element).find('img').attr('src'),
+              byLine  : $(element).find('p.byline').text().trim()
+            });
+            //checking to make sure newArticle contains a storyUrl
+            if (newArticle.storyUrl) {
+              //checking if new article matches any saved article, if not add it to array
+              //of new articles
+              if (!savedHeadlines.includes(newArticle.headline)) {
+                newArticleArr.push(newArticle);
+              }
+            }
+          });//end of each function
 
-        $('.story-heading').each(function(){
-            let storyUrl= $(this).children("a").attr("href"),
-                headline= $(this).children("a").text(),
-                summary = $(this).siblings("p").text(),
-                imgUrl  = $(this).children("img").attr("src"),
-                byLine  = $(this).siblings("p").text()
-
-                if (storyUrl && headline && summary && imgUrl && byLine){
-                    array.push({
-                            headline: headline, 
-                            storyUrl: storyUrl, 
-                            summary: summary, 
-                            imgUrl: imgUrl, 
-                            byLine: byLine })
-
-                    let article = new Article({
-                            headline: headline, 
-                            storyUrl: storyUrl, 
-                            summary: summary, 
-                            imgUrl: imgUrl, 
-                            byLine: byLine })
-
-                        article.save()
-                }
+          //adding all new articles to database
+          db.Article
+            .create(newArticleArr)
+            .then(result => res.json({count: newArticleArr.length}))//returning count of new articles to front end
+            .catch(err => {});
         })
-        res.send(newArticleArr)
+        .catch(err => console.log(err)); //end of rp method
     })
-})
+    .catch(err => console.log(err)); //end of db.Article.find()
+});// end of get request to /scrape
 
-module.exports = router
+module.exports = router;

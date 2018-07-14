@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html>
-    
   <head>
     <meta charset="utf-8">
     <title>Mongo Scraper</title>
-    <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <link 
-        rel="stylesheet" 
-        href="assets/css/main.css">
+    {{!-- <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css"> --}}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
   </head>
-
   <body>
      <header class="header" id="logo"></header>
      <div class="filler"></div>
 
 
-        {{{body}}}
+    {{{body}}}
 
-    
-    
-    <footer class="footer"></footer>
-
-
-
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
   </body>
 </html>
 
@@ -33,47 +26,9 @@
 
 {{!-- side-nav --}}
 <ul id="slide-out" class="side-nav fixed">
-    <li>
-        <a id="home" href="/"> Home </a>
-    </li>
-    <li>
-        <a href="/articles/saved" id="viewSaved"> Saved Articles </a>
-    </li>
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li>
-        <a id="scrape-new" href=""> Scrape New </a>
-    </li>
-    <li>
-        <a id="clear-scrape" href=""> Clear Articles </a>
-    </li>
+  <li><a id="home" href="/">Home</a></li>
+  <li><a href="/articles/viewSaved" id="viewSaved">Saved Articles</a></li>
+  <li><div class="divider"></div></li>
+  <li><a id="scrape"  data-toggle="modal" data-target="#alertModal">Scrape New </a></li>
+  <li><a id="clear">Clear Articles</a></li>
 </ul>
-
-
-
-
-{{!-- javascript  --}}
-<script 
-    type="text/javascript"
-    src="https://code.jquery.com/jquery-3.3.1.min.js" 
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous">
-</script>
-<script 
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-<script 
-    type="text/javascript" 
-    src="assets/js/main.js">
-</script>
-
-<script>
-    $(document).ready(function (){
-        $('.modal').modal()
-        $('.dropdown-trigger').dropdown();
-        $('.tooltipped').tooltip();
-    })
-</script>
-
-
