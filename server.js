@@ -35,18 +35,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/articles',express.static(path.join(__dirname, 'public')));
 app.use('/notes',express.static(path.join(__dirname, 'public')));
 
-
 //setting up routes
 const index = require('./routes/index'),
-      articles = require('./routes/articles')
+      articles = require('./routes/articles'),
 //       notes = require('./routes/notes'),
-    //   scrape = require('./routes/scrape')
+      scrape = require('./routes/scrape')
 //       clear = require('./routes/clear');
 
 app.use('/', index);
 app.use('/articles', articles);
 // app.use('/notes', notes);
-// app.use('/scrape', scrape);
+app.use('/scrape', scrape);
 // app.use('/clear', clear);
 
 app.listen(PORT, function(){

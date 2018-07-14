@@ -1,16 +1,18 @@
-// const express = require("express")
-// const db = require('../models');
-// app = express()
+const express = require('express'),
+      router = express.Router(),
+      db = require("../models")
 
 
-// // Clear Function
-// app.get('/clear', function(req, res){
-//     Article.remove({}).exec().then(function(doc){
-//         res.send(doc)
-//     })
+// Clear Function
+router.get('/clear', function(req, res){
+    db.Article
+        .remove({})
+        .exec()
+        .then(function(doc){
+        res.send(doc)
+    })
+})
 
-// })
 
-
-// module.exports = app
+module.exports = router
 

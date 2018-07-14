@@ -1,14 +1,25 @@
 //Dependencies
 const express = require('express'),
       router = express.Router(),
-      db = require("../models");
+      db = require("../models")
 
-//get route to root, populating index.handlebars with articles
-router.get('/', (req,res) => {
+//get route 
+router.get('/', function(req,res){
   db.Article
     .find({})
-    .then(articles => res.render('index', {articles}))
-    .catch(err=> res.json(err));
-});
+    .exec()
+    .then(function(data){
+      res.render('index', {articles: data})
+    })
+  })
 
-module.exports = router;
+// get route to all
+router.get('/all', function(req, res){
+  db.Article
+    .find({})
+    .exec()
+    .then(function(doc){
+      res.send(doc)
+  })
+})
+module.exports = router
