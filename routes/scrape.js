@@ -6,38 +6,12 @@ const express = require('express'),
       db = require('../models');
 
 
-router.get('/scrape', function(req, res){
-    request("https://www.nytimes.com/", function(err, response, html){
-        const $ = cheerio.load(html)
-        let array = []
-
-        $(".story-heading").each(function(){
-            let title = $(this).children("a").text()
-            let url = $(this).children("a").attr("href")
-            let summary = $(this).siblings("p").text()
-
-
-            if (title && url && summary){
-                array.push({title: title, url: url, summary: summary})
-                let article = new Article({title: title, url: url, summary: summary})
-                article.save()
-            }
-
-        })
-        res.send(array)
-        
-    })
-})
-
-
-
-
-
 //route to scrape new articles
-router.get("/newArticles", function(req, res) {
+router.get("/scrape", function(req, res) {
+    console.log(res)
   //configuring options object for request-promist
   const options = {
-    uri: 'https://www.nytimes.com/section/us',
+    uri: 'https://www.nytimes.com/',
     transform: function (body) {
         return cheerio.load(body);
     }

@@ -1,20 +1,29 @@
 
 
-// $("#scrape-new").on("click", function(){
-//     scrapeNew()
+$("#scrape-new").on("click", function(){
+    scrapeNew()
 
-// })
-
-
-// function scrapeNew(){
-// $.get("/scrape", function(response){
-//     console.log(response)
-//     location.reload()
-// })
-// }
+})
 
 
+function scrapeNew(){
+$.get("/scrape", function(response){
+    console.log(response)
+    location.reload()
+})
+}
 
+$("#clear-scrape").on("click", function(){
+    console.log("Clear")
+    clearArticles()
+  })
+
+function clearArticles(){
+    $.get("/clear", function(response){
+        console.log(response)
+        location.reload()
+    })
+   }
 
 
       

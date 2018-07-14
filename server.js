@@ -5,7 +5,7 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       logger = require('morgan'),
       path = require('path'),
-      PORT = process.env.PORT || 8080,
+      PORT = process.env.PORT || 3000,
       $ = require("jquery")
 
 //initializing the app
@@ -38,16 +38,16 @@ app.use('/notes',express.static(path.join(__dirname, 'public')));
 
 //setting up routes
 const index = require('./routes/index')
-      articles = require('./routes/articles'),
-      notes = require('./routes/notes'),
-      scrape = require('./routes/scrape')
-      clear = require('./routes/clear');
+//       articles = require('./routes/articles'),
+//       notes = require('./routes/notes'),
+//       scrape = require('./routes/scrape')
+//       clear = require('./routes/clear');
 
 app.use('/', index);
-app.use('/articles', articles);
-app.use('/notes', notes);
-app.use('/scrape', scrape);
-app.use('/clear', clear);
+// app.use('/articles', articles);
+// app.use('/notes', notes);
+// app.use('/scrape', scrape);
+// app.use('/clear', clear);
 
 app.listen(PORT, function(){
   console.log("Server listening on https://localhost:" + PORT)
