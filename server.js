@@ -13,7 +13,7 @@ const express = require('express'),
 const app = express();
 
 //setting up the database
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mongoArticles'
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/heroku_kq5rlk9b'
   mongoose
   .connect(MONGODB_URI)
   .catch((error) => {
