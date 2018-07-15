@@ -14,7 +14,12 @@ const app = express();
 
 //setting up the database
 var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mongoArticles'
-  mongoose.connect(MONGODB_URI);
+  mongoose
+  .connect(MONGODB_URI)
+  .catch((error) => {
+    assert.isNotOk(error,'Promise error');
+    done();
+  });
 
 //setting up favicon middleware
 app.use(favicon(path.join(__dirname, 'public', 'assets/img/favicon.ico')));
