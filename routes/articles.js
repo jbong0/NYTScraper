@@ -15,12 +15,12 @@ router.get('/save/:id', (req,res) => {
 router.get('/viewSaved', (req, res) => {
   db.Article
     .find({})
-    .then(result => res.render('savedArticles', {articles:result}))
+    .then(result => res.render('savedArticles', {articles: result}))
     .catch(err => res.json(err));
 });
 
 //delete route to remove an article from savedArticles
-router.delete('/deleteArticle/:id', function(req,res){
+router.delete('/deleteArticle/:id', (req,res) =>{
   db.Article
     .remove({_id: req.params.id})
     .then(result => res.json(result))

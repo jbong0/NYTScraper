@@ -4,7 +4,7 @@ const express = require('express'),
       db = require("../models");
 
 //get route to retrieve all notes for a particlular article
-router.get('/getNotes/:id', function (req,res){
+router.get('/getNotes/:id', (req,res) => {
   db.Article
     .findOne({_id: req.params.id})
     .populate('notes')
@@ -13,7 +13,7 @@ router.get('/getNotes/:id', function (req,res){
 });
 
 //get route to return a single note to view it
-router.get('/getSingleNote/:id', function (req,res) {
+router.get('/getSingleNote/:id',  (req,res) => {
   db.Note
   .findOne({_id: req.params.id})
   .then( result => res.json(result))
@@ -21,7 +21,7 @@ router.get('/getSingleNote/:id', function (req,res) {
 });
 
 //post route to create a new note in the database
-router.post('/createNote', function (req,res){
+router.post('/createNote', (req,res) => {
   let { title, body, articleId } = req.body;
   let note = {
     title,
@@ -39,7 +39,7 @@ router.post('/createNote', function (req,res){
 });
 
 //post route to delete a note
-router.post('/deleteNote', (req,res)=>{
+router.post('/deleteNote', (req,res) =>{
   let {articleId, noteId} = req.body;
   db.Note
     .remove({_id: noteId})
